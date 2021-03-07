@@ -1,0 +1,26 @@
+{
+  "name": "employee_tracker",
+  "version": "1.0.0",
+  "description": "CLI for office generation and maintenance",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmgson/employee_tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmgson/employee_tracker/issues"
+  },
+  "homepage": "https://github.com/cmgson/employee_tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.5.0"
+  }
+}
