@@ -1,16 +1,51 @@
-const express = require('express');
-const sequelize = require('./config/connection');
+const connection = require("./config/connection");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
 
-// Import model to sync table with database
-const Book = require('./models/Book');
-
-const app = express();
-const PORT = process.env.PORT || 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Force true to drop/recreate table(s) on every sync
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
+const init = () => {
+  inquirer
+    .prompt([
+      {
+        name: "init",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+          "Add Department",
+          "Add a Role",
+          "Add an Employee",
+          "View Departments",
+          "View Roles",
+          "View Employees",
+          "Update Employee Role",
+          "Update Employee Manager",
+          "View employees by Manager",
+          "Delete Department",
+          "Delete Role",
+          "Delete Employee",
+          "View Budget Allocation by Department",
+        ],
+      },
+    ])
+    .then((data) => {
+      console.log(data);
+      if (data.init === "Add Department") {
+        inquirer
+          .prompt([
+            {
+              name: "addDept",
+              type: "input",
+              message: "what is the department you would like to add?",
+            },
+          ])
+          .then((data) => {
+              const query = "INSERT INTO department SET ?";
+            connection.query(query, { name : data.addDept}),
+              function (err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + "inserted!\n");
+              };
+          });
+      }
+    });
+};
+init();
