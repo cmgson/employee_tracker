@@ -3,11 +3,38 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const { end } = require("./config/connection");
 const { response } = require("express");
-const adder = require('./adder.js')
-const viewer = require('./viewer.js')
-const updater = require('./updater.js')
+const adder = require('./adder.js');
+const viewer = require('./viewer.js');
+const updater = require('./updater.js');
+const Cfonts = require("cfonts");
+const chalk = require("chalk");
+const log = console.log;
+
+
+Cfonts.say('Employee|Tracker', {
+    font: '3d',
+    align: 'center',
+    colors: ['magenta','cyan',],
+    background: 'transparent',
+    letterSpacing: 1,
+    lineHeight: 2,
+    space: true,
+    maxLength: '0',
+    gradient: false,
+    independentGradient: false,
+    transitionGradient: false,
+    env: 'node'
+  });
+
+
+
 
 const init =  () => {
+
+  
+  log(chalk.magentaBright('------------------------------------\n'));
+  log(chalk.cyanBright('Choose one from the list below.  If you would like to stop the program, hit quit\n'))
+  log(chalk.magentaBright('------------------------------------\n'));
   inquirer
     .prompt([
       {
@@ -62,13 +89,34 @@ const questionSwitch = async (data) => {
       init();
       break;
     case "Quit":
-      console.log('have a nice day!');
+      Cfonts.say('Have a Nice Day', {
+        font: 'tiny',
+        align: 'center',
+        colors: ['magenta','cyan',],
+        background: 'transparent',
+        letterSpacing: 1,
+        lineHeight: 1,
+        space: true,
+        maxLength: '0',
+        gradient: false,
+        independentGradient: false,
+        transitionGradient: false,
+        env: 'node'
+      });
       connection.end();
   }
 };
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("connected as id " + connection.threadId + "\n");
+  log(chalk.magentaBright("connected as id " + connection.threadId + "\n"));
+  
+
+
+
+
   init();
 });
+
+
+    
 
