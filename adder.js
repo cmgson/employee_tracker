@@ -83,7 +83,7 @@ const addDept = () => {
       newArray.push(choicesRole[i].title);
     }
     console.log(newArray);
-  
+
     inquirer
       .prompt([
         {
@@ -156,5 +156,5 @@ const addDept = () => {
       getRole,
       addDept,
       getDept,
-      addEmp
+      addEmp,
   }

@@ -4,6 +4,8 @@ const inquirer = require("inquirer");
 const { end } = require("./config/connection");
 const { response } = require("express");
 const adder = require('./adder.js')
+const viewer = require('./viewer.js')
+const updater = require('./updater.js')
 
 const init = () => {
   inquirer
@@ -48,16 +50,16 @@ const questionSwitch = (data) => {
       adder.addEmp();
       break;
     case "View Departments":
-      viewDept();
+      viewer.viewDept();
       break;
     case "View Roles":
-      viewRoles();
+      viewer.viewRoles();
       break;
     case "View Employees":
-      viewEmp();
+      viewer.viewEmp();
       break;
     case "Update Employee Role":
-      upRole();
+      updater.upRole();
       break;
     case "Update Employee Manager":
       upMan();
