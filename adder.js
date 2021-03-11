@@ -6,7 +6,7 @@ const { response } = require("express");
 
 //this is to add a department to the department table
 const addDept = () => {
-    inquirer
+  return inquirer
       .prompt([
         {
           name: "addDept",
@@ -17,8 +17,6 @@ const addDept = () => {
       .then((data) => {
         const query = "INSERT INTO department SET ?";
         connection.query(query, { name: data.addDept });
-        console.log("hey were done");
-        // connection.end();
       });
   };
   //this is getting department titles in order to populate the addRole choices
@@ -27,9 +25,6 @@ const addDept = () => {
       const sql = "SELECT * FROM employee_tracker.department";
       connection.query(sql, (err, res) => {
         if (err) throw err;
-        for (var i = 0; i < res.length; i++) {
-          console.log(res[i].id);
-        }
         resolve(res);
       });
     });
@@ -37,7 +32,7 @@ const addDept = () => {
   //this is to add a role to the role table
   const addRole = async () => {
     let choices = await getDept();
-    inquirer
+    return inquirer
       .prompt([
         {
           name: "addRole",
@@ -56,35 +51,26 @@ const addDept = () => {
         },
       ])
       .then((data) => {
-        console.log(data);
-        console.log(choices);
         let obj = choices.find((o) => o.name === data.whichDept);
-        console.log(obj);
         const query = "INSERT INTO employee_tracker.role SET ?";
         connection.query(
           query,
           { title: data.addRole, salary: data.addSalary, department_id: obj.id },
           (err, res) => {
             if (err) throw err;
-            console.log(res.affectedRows);
           }
         );
-        console.log("did it");
       });
   };
   //this is to add an employee to the employee table
   const addEmp = async () => {
     let choicesRole = await getRole();
-    console.log("choices role was passed into addemp");
-    console.log(choicesRole);
     newArray = [];
     for (let i = 0; i < choicesRole.length; i++) {
-      console.log(choicesRole[i].title);
       newArray.push(choicesRole[i].title);
     }
-    console.log(newArray);
 
-    inquirer
+    return inquirer
       .prompt([
         {
           name: "firstName",
@@ -104,18 +90,11 @@ const addDept = () => {
         },
       ])
       .then((data) => {
-        console.log(data);
-        console.log(choicesRole);
         let result = choicesRole.filter((obj) => {
           return obj.title === data.whichRole;
         });
-        console.log(result);
-        // data.whichRole = result.id
-        console.log("here comes the magic hopefully");
-        console.log(`does this work${data.whichRole}`);
-  
         let obj = newArray.find((o) => o.name === data.whichRole);
-        console.log(`this should be the id${result[0].id}`);
+
         const query = "INSERT INTO employee_tracker.employee SET ?";
         connection.query(
           query,
@@ -126,10 +105,8 @@ const addDept = () => {
           },
           (err, res) => {
             if (err) throw err;
-            console.log(res.affectedRows);
           }
         );
-        console.log("did it");
       });
   };
   //this is used to get the titles of roles from roles table and populate the questions in the addEmp function
@@ -140,12 +117,10 @@ const addDept = () => {
       connection.query(sql, (err, res) => {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
-          // console.log(res[i].title);
+
   
           roleArray.push({ id: res[i].id, title: `${res[i].title}` });
         }
-        console.log(roleArray);
-        console.log(res);
         resolve(roleArray);
       });
     });

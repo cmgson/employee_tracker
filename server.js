@@ -7,7 +7,7 @@ const adder = require('./adder.js')
 const viewer = require('./viewer.js')
 const updater = require('./updater.js')
 
-const init = () => {
+const init =  () => {
   inquirer
     .prompt([
       {
@@ -22,64 +22,53 @@ const init = () => {
           "View Roles",
           "View Employees",
           "Update Employee Role",
-          "Update Employee Manager",
-          "View employees by Manager",
-          "Delete Department",
-          "Delete Role",
-          "Delete Employee",
-          "View Budget Allocation by Department",
+          "Quit",
         ],
       },
     ])
     .then((data) => {
-      console.log(data);
       questionSwitch(data);
     });
 };
 
-const questionSwitch = (data) => {
-  console.log('did we make it?');
+const questionSwitch = async (data) => {
   switch (data.init) {
     case "Add Department":
-      adder.addDept();
+      await adder.addDept();
+      init();
       break;
     case "Add a Role":
-      adder.addRole();
+      await adder.addRole();
+      init();
       break;
     case "Add an Employee":
-      adder.addEmp();
+      await adder.addEmp();
+      init();
       break;
     case "View Departments":
-      viewer.viewDept();
+      await viewer.viewDept();
+      init();
       break;
     case "View Roles":
-      viewer.viewRoles();
+      await viewer.viewRoles();
+      init()
       break;
     case "View Employees":
-      viewer.viewEmp();
+      await viewer.viewEmp();
+      init();
       break;
     case "Update Employee Role":
-      updater.upRole();
+      await updater.upRole();
+      init();
       break;
-    case "Update Employee Manager":
-      upMan();
-      break;
-    case "View employees by Manager":
-      viewMan();
-      break;
-    case "Delete Department":
-      delDept();
-      break;
-    case "Delete Role":
-      delRole();
-      break;
-    case "Delete Employee":
-      delEmp();
-      break;
-    case "View Budget Allocation by Department":
-      budget();
-      break;
+    case "Quit":
+      console.log('have a nice day!');
+      connection.end();
   }
 };
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId + "\n");
+  init();
+});
 
-init();
