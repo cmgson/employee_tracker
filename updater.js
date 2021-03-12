@@ -1,8 +1,5 @@
 const connection = require("./config/connection");
-const mysql = require("mysql");
 const inquirer = require("inquirer");
-const { end } = require("./config/connection");
-const { response } = require("express");
 const { getRole } = require("./adder");
 
 const upRole = async () => {
@@ -21,7 +18,6 @@ const upRole = async () => {
     });
   }
 
-
   return inquirer
     .prompt([
       {
@@ -38,16 +34,14 @@ const upRole = async () => {
       },
     ])
     .then((data) => {
-
       return new Promise((resolve) => {
         const sql =
-        "UPDATE employee_tracker.employee SET role_id = ? WHERE id = ?";
-      connection.query(sql, [data.whichRole, data.whichEmp], (err, res) => {
-        if (err) throw err;
-        resolve(res.affectedRows);
+          "UPDATE employee_tracker.employee SET role_id = ? WHERE id = ?";
+        connection.query(sql, [data.whichRole, data.whichEmp], (err, res) => {
+          if (err) throw err;
+          resolve(res.affectedRows);
+        });
       });
-      });
-      
     });
 };
 

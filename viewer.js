@@ -1,42 +1,34 @@
 const connection = require("./config/connection");
-const mysql = require("mysql");
-const inquirer = require("inquirer");
-const { end } = require("./config/connection");
-const { response } = require("express");
 
 const viewDept = () => {
   return new Promise((resolve) => {
     const sql = "SELECT * FROM employee_tracker.department";
     connection.query(sql, (err, res) => {
-        if (err) throw err;
-        resolve(console.table(res)); 
+      if (err) throw err;
+      resolve(console.table(res));
     });
   });
 };
 
 const viewRoles = () => {
-    return new Promise((resolve) => {
-        const sql = "SELECT * FROM employee_tracker.role";
-        connection.query(sql, (err, res) => {
-            if (err) throw err;
-            resolve(console.table(res)); 
-        });
-      });
-
-}
+  return new Promise((resolve) => {
+    const sql = "SELECT * FROM employee_tracker.role";
+    connection.query(sql, (err, res) => {
+      if (err) throw err;
+      resolve(console.table(res));
+    });
+  });
+};
 
 const viewEmp = () => {
-    return new Promise((resolve) => {
-        const sql = "SELECT * FROM employee_tracker.employee";
-        connection.query(sql, (err, res) => {
-            if (err) throw err;
-            resolve(console.table(res)); 
-        });
-      });
-
-}
-
-
+  return new Promise((resolve) => {
+    const sql = "SELECT * FROM employee_tracker.employee";
+    connection.query(sql, (err, res) => {
+      if (err) throw err;
+      resolve(console.table(res));
+    });
+  });
+};
 
 module.exports = {
   viewDept,
