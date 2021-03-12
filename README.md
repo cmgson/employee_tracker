@@ -61,8 +61,11 @@ Fork and Go wild!  The link to the specific github is listed below.
 --- 
 
 no tests provided.  Here is a quick demo for an example on how to traverse the CLI.
+<div align ='center'>
 
 ![gif of demo](assets/demo.gif)
+
+</div>
 
 --- 
 
